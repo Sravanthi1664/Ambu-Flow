@@ -1,94 +1,93 @@
-const sign_in_btn = document.querySelector("#sign-in-btn");
-const sign_up_btn = document.querySelector("#sign-up-btn");
+// Cache DOM elements
+const signInBtn = document.querySelector("#sign-in-btn");
+const signUpBtn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
+const passwordField = document.querySelector(".sign-up-form input[type='password']");
+const strengthWeak = document.getElementById("strength-weak");
+const strengthMedium = document.getElementById("strength-medium");
+const strengthStrong = document.getElementById("strength-strong");
 
-sign_up_btn.addEventListener("click", () => {
+// Toggle between Sign-In and Sign-Up modes
+signUpBtn.addEventListener("click", () => {
   container.classList.add("sign-up-mode");
 });
 
-sign_in_btn.addEventListener("click", () => {
+signInBtn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
-});
-
-// Sign in form submission
-document.querySelector(".sign-in-form").addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  // Get the input values
-  const username = document.querySelector(".sign-in-form input[type='text']").value;
-  const password = document.querySelector(".sign-in-form input[type='password']").value;
-
-  // Dummy login logic for demo purposes
-  if (username === 'admin' && password === 'password') {
-    alert('Login successful!');
-    // Redirect to dashboard page
-    window.location.href = 'index.html';
-  } else {
-    alert('Invalid username or password');
-  }
-});
-
-// Sign up form submission
-document.querySelector(".sign-up-form").addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  // Get the input values
-  const username = document.querySelector(".sign-up-form input[type='text']").value;
-  const email = document.querySelector(".sign-up-form input[type='email']").value;
-  const password = document.querySelector(".sign-up-form input[type='password']").value;
-
-  if (username === '' || email === '' || password === '') {
-    alert('Please fill in all fields');
-    return;
-  }
-
-  // Dummy signup logic for demo purposes
-  localStorage.setItem('username', username);
-  localStorage.setItem('email', email);
-  localStorage.setItem('password', password);
-  localStorage.setItem('isLoggedIn', 'true');
-
-  alert('Signup successful!');
-  // Redirect to dashboard page
-  window.location.href = 'index.html';
 });
 
 // Toggle password visibility
 function togglePassword(fieldId, icon) {
   const field = document.getElementById(fieldId);
-  const isPassword = field.type === 'password';
+  const isPassword = field.type === "password";
 
-  // Toggle between 'password' and 'text'
-  field.type = isPassword ? 'text' : 'password';
+  // Toggle between 'password' and 'text' types
+  field.type = isPassword ? "text" : "password";
 
-  // Change the icon class between eye and eye-slash
-  icon.classList.toggle('fa-eye-slash', isPassword);
-  icon.classList.toggle('fa-eye', !isPassword);
+  // Toggle the icon class between 'eye' and 'eye-slash'
+  icon.classList.toggle("fa-eye-slash", isPassword);
+  icon.classList.toggle("fa-eye", !isPassword);
+
+  // Set aria-label for accessibility
+  icon.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
 }
 
 // Check password strength
 function checkPasswordStrength() {
-  const password = document.querySelector(".sign-up-form input[type='password']").value;
-  const strengthWeak = document.getElementById('strength-weak');
-  const strengthMedium = document.getElementById('strength-medium');
-  const strengthStrong = document.getElementById('strength-strong');
-
+  const password = passwordField.value;
   let strength = 0;
 
+  // Password strength criteria
   if (password.length >= 8) strength++;
-  if (password.match(/[A-Z]/)) strength++;
-  if (password.match(/[a-z]/)) strength++;
-  if (password.match(/[0-9]/)) strength++;
-  if (password.match(/[^a-zA-Z0-9]/)) strength++;
+  if (/[A-Z]/.test(password)) strength++;
+  if (/[a-z]/.test(password)) strength++;
+  if (/[0-9]/.test(password)) strength++;
+  if (/[^a-zA-Z0-9]/.test(password)) strength++;
 
-  strengthWeak.className = '';
-  strengthMedium.className = '';
-  strengthStrong.className = '';
+  // Reset classes
+  strengthWeak.className = "";
+  strengthMedium.className = "";
+  strengthStrong.className = "";
 
-  if (strength >= 1) strengthWeak.className = 'weak';
-  if (strength >= 3) strengthMedium.className = 'medium';
-  if (strength >= 5) strengthStrong.className = 'strong';
+  // Update strength indicators dynamically
+  if (strength >= 1) strengthWeak.className = "weak";
+  if (strength >= 3) strengthMedium.className = "medium";
+  if (strength >= 5) strengthStrong.className = "strong";
+  
+  // Optional: Provide feedback to user
+  displayStrengthMessage(strength);
+}
+
+// Display feedback message for password strength
+function displayStrengthMessage(strength) {
+  const feedbackMessage = document.getElementById("password-feedback");
+
+  let message = "";
+  let color = "";
+
+  switch (strength) {
+    case 0:
+    case 1:
+      message = "Weak password";
+      color = "red";
+      break;
+    case 2:
+    case 3:
+      message = "Moderate password";
+      color = "orange";
+      break;
+    case 4:
+    case 5:
+      message = "Strong password";
+      color = "green";
+      break;
+    default:
+      message = "";
+  }
+
+  feedbackMessage.textContent = message;
+  feedbackMessage.style.color = color;
 }
 
 // Call the checkPasswordStrength function on password input
-document.querySelector(".sign-up-form input[type='password']").addEventListener('input', checkPasswordStrength);
+passwordField.addEventListener("input", checkPasswordStrength);

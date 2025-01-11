@@ -3,7 +3,10 @@
 @import url('<link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">');
 
 * {
-  font-family: "Poppins", sans-serif;
+
+  font-family:  "Poppins", sans-serif;
+  overflow-x:  none;
+
 }
 
 html {
@@ -29,125 +32,6 @@ html::-webkit-scrollbar-thumb:window-inactive {
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-}
-
-header {
-  background-color: #ffffff;
-  border-bottom: px solid #e5e7eb;
-}
-
-.container {
-  /* max-width: 1280px; */
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-}
-
-.brand-name {
-  font-family: 'poppins', sans-serif;
-  font-weight: bold;
-  margin-right: 0.5rem;
-  font-size: 1.5rem;
-  color: #2980B9;
-}
-
-.ambu {
-  font-family: 'poppins', sans-serif;
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #e81a1a;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  height: 40px;
-  margin-right: 10px;
-}
-
-.logo span {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.menu ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.menu ul li {
-  margin-left: 20px;
-}
-
-.menu ul li a {
-  text-decoration: none;
-  color: #4b5563;
-  font-weight: 500;
-  padding: 8px 12px;
-  transition: background-color 0.3s;
-  border: 2px solid #1d4ed8;
-  border-radius: 15px;
-}
-
-.menu ul li a:hover {
-  /* color: #1d4ed8;
-  background-color: #f3f4f6;
-  border-radius: 5px; */
-  color: white;
-  background-color: #1d4ed8;
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-  text-wrap: nowrap;
-}
-
-.buttons a {
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin-left: 10px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: background-color 0.3s, color 0.3s;
-  border: 2px solid #1d4ed8;
-}
-
-.login {
-  color: #4b5563;
-  background-color: transparent;
-  border: 1px solid transparent;
-}
-
-.login:hover {
-  /* background-color: #f3f4f6;
-  color: #1d4ed8; */
-  background-color: #1d4ed8;
-  ;
-  color: white;
-}
-
-.get-started {
-  background-color: #1d4ed8;
-  color: #ffffff;
-}
-
-.get-started:hover {
-  background-color: #2563eb;
 }
 
 .quick-ft {
@@ -207,7 +91,6 @@ header {
   width: 100%;
   gap: 80px;
   flex-wrap: wrap;
-
 }
 
 .team-features,
@@ -308,28 +191,30 @@ header {
   }
 }
 
+.team-feature .team-feature-details p,
+.contact-feature .contact-feature-details p
+{
+margin-bottom: 30px;
+}
+
 .button {
-  display: inline-block;
-  padding: 8px 16px;
-  /* Reduce padding for a smaller button */
-  background-color: #28a745;
-  /* Keep background color green */
-  color: #fff;
-  text-align: center;
-  border: 2px solid #218838;
-  /* Add a border with a darker green color */
-  border-radius: 4px;
-  /* Reduce border radius for a less rounded button */
+  position: relative;
   text-decoration: none;
-  font-weight: bold;
-  /* Keep the text bold */
-  transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+  border: 2px solid #1d4ed8;
+  background-color: #1d4ed8;
+    color: #ffffff;
 }
 
 .button:hover {
-  background-color: #218838;
+  background-color: #1d4ed8;
   /* Darker green on hover */
-  border-color: #1e7e34;
+  border-color: #1d4ed8;
   /* Change border color on hover */
   transform: scale(1.05);
   /* Slightly enlarge on hover */
@@ -483,6 +368,10 @@ header {
   transition: all 0.3s ease-out;
 }
 
+
+/* Footer Section */
+
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -541,5 +430,55 @@ header {
 
   .quick-ft {
     align-items: center;    /* Center quick-ft section */
+  }
+  .footer-contents{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width :600px) {
+  .team-feature,.contact-feature{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+  }
+  .team-feature img,.contact-feature img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 3px solid #2980b9;
+  }
+
+  .team-feature .team-feature-details,
+  .contact-feature .contact-feature-details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .team-feature .team-feature-details h2,
+  .contact-feature .contact-feature-details h2
+  {
+    color: #2980b9;
+    margin-bottom: 10px;
+  }
+  .team-feature .team-feature-details p,
+  .contact-feature .contact-feature-details p{
+    text-align: center;
+   color: #555;
+   margin-bottom: 20px;
+  }
+
+  .footer-contents{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
